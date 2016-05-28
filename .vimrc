@@ -14,6 +14,7 @@ set encoding=utf-8
 set mouse=a
 set nobackup
 set nowritebackup
+set hlsearch
 
 syntax on
 

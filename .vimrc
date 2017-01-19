@@ -7,7 +7,7 @@ autocmd Filetype java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 au FileType java set tags^=/home1/irteam/worksOne/oneapp-im/tags
 
 "FlexibleTagsStart
-set tags=/home1/irteam/worksOne/oneapp-linegw/tags
+set tags=/home1/irteam/worksOne/oneapp-im/tags
 "FlexibleTagsEnd
 
 "FixedTagsStart
@@ -33,6 +33,8 @@ syntax on
 
 " remove extraneous ".netrwhist" file
 autocmd VimLeave * if filereadable("/home1/irteam/.vim/.netrwhist") | call delete("/home1/irteam/.vim/.netrwhist") | endif
+
+autocmd VimEnter * if filereadable("/home1/irteam/my_directory/daily-log/script/ctags-change.sh") | :silent !ctags-change.sh | endif
 
 if version >= 500
 func! Sts()

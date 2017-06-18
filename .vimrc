@@ -8,7 +8,7 @@ autocmd FileType go setlocal noexpandtab tabstop=4
 au FileType java set tags^=/home1/irteam/worksOne/oneapp-im/tags
 
 "FlexibleTagsStart
-set tags=/home1/irteam/worksOne/oneapp-api/tags
+set tags=/Users/Naver/Desktop/worksOne/oneapp-api/tags
 "FlexibleTagsEnd
 
 set nu " 행번호 표시
@@ -35,43 +35,66 @@ set ruler " 화면 우측 하단에 현재 커서의 위치(줄,칸) 표시
 syntax on
 
 " for golang syntax highlight in mac
-filetype on
 au BufRead *.go set filetype=go
 au BufNewFile *.go set filetype=go
-" execute pathogen#infect()
-" filetype plugin indent on
-" nmap <F8> :TagbarToggle<CR>
-" nmap <C-n> :NERDTreeToggle<CR>
-" let $GOPATH = "/Users/Naver/vim-go"
-" end
+" golang syntax end
 
+" set pathogen
+filetype on
+execute pathogen#infect()
+filetype plugin indent on
+" pathogen end
+
+" set vim leave
 " remove extraneous ".netrwhist" file
-autocmd VimLeave * if filereadable("/home1/irteam/.vim/.netrwhist") | call delete("/home1/irteam/.vim/.netrwhist") | endif
+autocmd VimLeave * if filereadable("/Users/Naver/.vim/.netrwhist") | call delete("/Users/Naver/.vim/.netrwhist") | endif
+" vim leave end
 
-" execute ctags-chang.sh
-autocmd VimEnter * if filereadable("/home1/irteam/my_directory/daily-log/script/ctags-change.sh") | :silent !ctags-change.sh | endif
+" set vim enter
+" execute ctags-change-in-vimrc.sh
+autocmd VimEnter * if filereadable("/Users/Naver/Desktop/changhoon/scripts/ctags/ctags-change-in-vimrc.sh") | :silent !ctags-change-in-vimrc.sh | endif
+" vim enter end
 
-if version >= 500
+" define function
 func! Sts()
 	let st = expand("<cword>")
 	exe "sts ".st
 endfunc
-nmap ,st :call Sts()<cr>
 
 func! Tj()
 	let st = expand("<cword>")
 	exe "tj ".st
 endfunc
-nmap ,tj :call Tj()<cr>
-endif
+
+"function! InsertTabWrapper()
+"    let col = col('.')-1
+"    if !col||getline('.')[col-1]!~'\k'
+"        return "\<TAB>"
+"    else
+"        if pumvisible()
+"            return "\<C-N>"
+"        else
+"            return "\<C-N>\<C-P>"
+"        end
+"    endif
+"endfunction
+" define function end
 
 " cursor move to last position
+" if not working, check .viminfo permission
 au BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") && &filetype != "gitcommit" |
         \ execute("normal `\"") |
     \ endif
 " cusor move end
-" if not working, check .viminfo permission
+
+" key mapping
+nmap <C-a> :TagbarToggle<CR>
+nmap <C-n> :NERDTreeToggle<CR>
+nmap ,st :call Sts()<cr>
+nmap ,tj :call Tj()<cr>
+"inoremap <tab> <c-r>=InsertTabWrapper()<cr> " for autocomplpop use tab key
+" key mapping end
 
 " set vim theme
 colors solarized8_dark_flat

@@ -2,13 +2,13 @@ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype c setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype cpp setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-autocmd FileType go setlocal noexpandtab tabstop=4
+autocmd FileType go setlocal noexpandtab tabstop=8
 
 "au FileType cpp set tags^=/home1/irteam/worksOne/oneapp-api/tags
 au FileType java set tags^=/home1/irteam/worksOne/oneapp-im/tags
 
 "FlexibleTagsStart
-set tags=/Users/Naver/Desktop/worksOne/oneapp-api/tags
+set tags=/home1/irteam/worksOne/oneapp-api/tags
 "FlexibleTagsEnd
 
 set nu " 행번호 표시
@@ -32,6 +32,10 @@ set ruler " 화면 우측 하단에 현재 커서의 위치(줄,칸) 표시
 " set incsearch "  키워드 입력시 점진적 검색(Highlight dynamically)
 " set title " Show the filename in the window titlebar
 
+" command
+" resize +5(or -5) " split mode window size 변경
+" vertical resize +5(or -5) " vertical split mode window size 변경
+
 syntax on
 
 " for golang syntax highlight in mac
@@ -47,12 +51,12 @@ filetype plugin indent on
 
 " set vim leave
 " remove extraneous ".netrwhist" file
-autocmd VimLeave * if filereadable("/Users/Naver/.vim/.netrwhist") | call delete("/Users/Naver/.vim/.netrwhist") | endif
+autocmd VimLeave * if filereadable("/home1/irteam/.vim/.netrwhist") | call delete("/Users/Naver/.vim/.netrwhist") | endif
 " vim leave end
 
 " set vim enter
 " execute ctags-change-in-vimrc.sh
-autocmd VimEnter * if filereadable("/Users/Naver/Desktop/changhoon/scripts/ctags/ctags-change-in-vimrc.sh") | :silent !ctags-change-in-vimrc.sh | endif
+autocmd VimEnter * if filereadable("/home1/irteam/my_directory/scripts/ctags/ctags-change-in-vimrc.sh") | :silent !ctags-change-in-vimrc.sh | endif
 " vim enter end
 
 " define function
@@ -91,6 +95,11 @@ au BufReadPost *
 " key mapping
 nmap <C-a> :TagbarToggle<CR>
 nmap <C-n> :NERDTreeToggle<CR>
+nmap <C-x> :noh<CR>
+"" function folding
+nmap <F1> v]}zf
+"" function open
+nmap <F2> zo
 nmap ,st :call Sts()<cr>
 nmap ,tj :call Tj()<cr>
 "inoremap <tab> <c-r>=InsertTabWrapper()<cr> " for autocomplpop use tab key

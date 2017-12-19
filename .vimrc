@@ -8,7 +8,7 @@ autocmd FileType go setlocal noexpandtab tabstop=8
 au FileType java set tags^=/home1/irteam/worksOne/oneapp-im/tags
 
 "FlexibleTagsStart
-set tags=/home1/irteam/worksOne/oneapp-api/tags
+set tags=/home1/irteam/worksOne/oneapp-linegw/tags
 "FlexibleTagsEnd
 
 set nu " 행번호 표시
@@ -100,9 +100,15 @@ nmap <C-x> :noh<CR>
 nmap <F1> v]}zf
 "" function open
 nmap <F2> zo
-nmap ,st :call Sts()<cr>
-nmap ,tj :call Tj()<cr>
+nmap ,st :call Sts()<CR>
+nmap ,tj :call Tj()<CR>
+nmap <Leader>p :set paste<CR>i
 "inoremap <tab> <c-r>=InsertTabWrapper()<cr> " for autocomplpop use tab key
+
+nnoremap <silent> <Leader>= :exe "resize +3"<CR>
+nnoremap <silent> <Leader>- :exe "resize -3"<CR>
+nnoremap <silent> <Leader>] :exe "vertical resize +3"<CR>
+nnoremap <silent> <Leader>[ :exe "vertical resize -3"<CR>
 " key mapping end
 
 " set vim theme

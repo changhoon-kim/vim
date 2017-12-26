@@ -8,7 +8,7 @@ autocmd FileType go setlocal noexpandtab tabstop=8
 au FileType java set tags^=/home1/irteam/worksOne/oneapp-im/tags
 
 "FlexibleTagsStart
-set tags=/home1/irteam/worksOne/oneapp-linegw/tags
+set tags=/home1/irteam/worksOne/oneapp-api/tags
 "FlexibleTagsEnd
 
 set nu " 행번호 표시
@@ -70,6 +70,40 @@ func! Tj()
 	exe "tj ".st
 endfunc
 
+" Find file in current directory and edit it.
+function! Find(name)
+	"let l:list=system("find . -iname '".a:name."' | perl -ne 'print \"$.\: $_\"'")
+	let l:list=system("find . -iname '".a:name."*"."' | egrep --color=never -v '\\.o|\\.d' | perl -ne 'print \"$.\: $_\"'")
+	" replace above line with below one for gvim on windows
+	" let l:list=system("find . -iname ".a:name." | perl -ne \"print qq{$.\\t$_}\"")
+	let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
+	if l:num < 1
+		echo "'".a:name."' not found"
+		return
+	endif
+	if l:num != 1
+		echo l:list
+		let l:input=input("Which ? (ENTER=nothing)\n")
+		if strlen(l:input)==0
+			return
+		endif
+		if strlen(substitute(l:input, "[0-9]", "", "g"))>0
+			echo "Not a number"
+			return
+		endif
+		if l:input<1 || l:input>l:num
+			echo "Out of range"
+			return
+		endif
+		let l:line=matchstr("\n".l:list, "\n".l:input."\t[^\n]*")
+	else
+		let l:line=l:list
+	endif
+	let l:line=substitute(l:line, "^[^\t]*\t./", "", "")
+	execute ":e ".l:line
+endfunction
+command! -nargs=1 Find :call Find("<args>")
+
 "function! InsertTabWrapper()
 "    let col = col('.')-1
 "    if !col||getline('.')[col-1]!~'\k'
@@ -103,6 +137,7 @@ nmap <F2> zo
 nmap ,st :call Sts()<CR>
 nmap ,tj :call Tj()<CR>
 nmap <Leader>p :set paste<CR>i
+nmap <Leader>f :Find<SPACE>
 "inoremap <tab> <c-r>=InsertTabWrapper()<cr> " for autocomplpop use tab key
 
 nnoremap <silent> <Leader>= :exe "resize +3"<CR>

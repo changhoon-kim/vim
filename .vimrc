@@ -4,9 +4,6 @@ autocmd Filetype cpp setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype java setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal noexpandtab tabstop=8
 
-"au FileType cpp set tags^=/home1/irteam/worksOne/oneapp-api/tags
-au FileType java set tags^=/home1/irteam/worksOne/oneapp-im/tags
-
 "FlexibleTagsStart
 set tags=/home1/irteam/worksOne/oneapp-api/tags
 "FlexibleTagsEnd
@@ -129,6 +126,7 @@ au BufReadPost *
 " key mapping
 nmap <C-a> :TagbarToggle<CR>
 nmap <C-n> :NERDTreeToggle<CR>
+nmap <C-i> :IndentLinesToggle<CR>
 nmap <C-x> :noh<CR>
 "" function folding
 nmap <F1> v]}zf

@@ -1,7 +1,7 @@
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype c setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype cpp setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-autocmd Filetype java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype java setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal noexpandtab tabstop=8
 
 "au FileType cpp set tags^=/home1/irteam/worksOne/oneapp-api/tags

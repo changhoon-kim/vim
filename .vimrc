@@ -75,7 +75,7 @@ function! Find(name)
 	"let l:list=system("find . -iname '".a:name."' | perl -ne 'print \"$.\: $_\"'")
 	let l:list=system("find . -iname '".a:name."*"."' | egrep --color=never -v '\\.o|\\.d' | perl -ne 'print \"$.\: $_\"'")
 	" replace above line with below one for gvim on windows
-	" let l:list=system("find . -iname ".a:name." | perl -ne \"print qq{$.\\t$_}\"")
+	" let l:list=system("find . -iname ".a:name." | perl -ne \"print {$.\\t$_}\"")
 	let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
 	if l:num < 1
 		echo "'".a:name."' not found"
@@ -95,11 +95,11 @@ function! Find(name)
 			echo "Out of range"
 			return
 		endif
-		let l:line=matchstr("\n".l:list, "\n".l:input."\t[^\n]*")
+		let l:line=matchstr("\n".l:list, "\n".l:input.": [^\n]*")
 	else
 		let l:line=l:list
 	endif
-	let l:line=substitute(l:line, "^[^\t]*\t./", "", "")
+	let l:line=substitute(l:line, "^[^ ]* ./", "", "")
 	execute ":e ".l:line
 endfunction
 command! -nargs=1 Find :call Find("<args>")
@@ -138,6 +138,7 @@ nmap ,st :call Sts()<CR>
 nmap ,tj :call Tj()<CR>
 nmap <Leader>p :set paste<CR>i
 nmap <Leader>f :Find<SPACE>
+nmap <Leader>b :e#<CR>
 "inoremap <tab> <c-r>=InsertTabWrapper()<cr> " for autocomplpop use tab key
 
 nnoremap <silent> <Leader>= :exe "resize +3"<CR>

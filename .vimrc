@@ -5,7 +5,7 @@ autocmd Filetype java setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal noexpandtab tabstop=8
 
 "FlexibleTagsStart
-set tags=/home1/irteam/worksOne/oneapp-api/tags
+set tags=/home1/irteam/worksOne/oneapp-botgw/tags
 "FlexibleTagsEnd
 
 set nu " 행번호 표시
@@ -28,6 +28,8 @@ set ruler " 화면 우측 하단에 현재 커서의 위치(줄,칸) 표시
 " set ignorecase " 검색시 대소문자 무시, set ic 도 가능
 " set incsearch "  키워드 입력시 점진적 검색(Highlight dynamically)
 " set title " Show the filename in the window titlebar
+set list
+set listchars=tab:¦\ , " with white space
 
 " command
 " resize +5(or -5) " split mode window size 변경
@@ -147,3 +149,6 @@ nnoremap <silent> <Leader>[ :exe "vertical resize -3"<CR>
 
 " set vim theme
 colors solarized8_dark_flat
+
+" remove tab background color
+hi SpecialKey ctermfg=239 ctermbg=NONE

@@ -50,7 +50,7 @@ filetype plugin indent on
 
 " set vim leave
 " remove extraneous ".netrwhist" file
-autocmd VimLeave * if filereadable("/home1/irteam/.vim/.netrwhist") | call delete("/Users/Naver/.vim/.netrwhist") | endif
+autocmd VimLeave * if filereadable("/home1/irteam/.vim/.netrwhist") | call delete("/home1/irteam/.vim/.netrwhist") | endif
 " vim leave end
 
 " set vim enter

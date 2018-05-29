@@ -5,7 +5,7 @@ autocmd Filetype java setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal noexpandtab tabstop=8
 
 "FlexibleTagsStart
-set tags=/home1/irteam/worksOne/oneapp-botgw/tags
+set tags=/home1/irteam/my_directory/oneapp-api/tags
 "FlexibleTagsEnd
 
 set nu " 행번호 표시
@@ -70,11 +70,14 @@ func! Tj()
 endfunc
 
 " Find file in current directory and edit it.
-function! Find(name)
-	"let l:list=system("find . -iname '".a:name."' | perl -ne 'print \"$.\: $_\"'")
-	let l:list=system("find . -iname '".a:name."*"."' | egrep --color=never -v '\\.o|\\.d' | perl -ne 'print \"$.\: $_\"'")
-	" replace above line with below one for gvim on windows
-	" let l:list=system("find . -iname ".a:name." | perl -ne \"print {$.\\t$_}\"")
+function! Find(name,...)
+	let a:filetype = get(a:, 1, "") " get args2 and set default value
+
+	if strlen(a:filetype) == 0
+		let l:list=system("find . -iname '".a:name."*"."' | egrep --color=never -v '\\.o|\\.d' | perl -ne 'print \"$.\: $_\"'")
+	else
+		let l:list=system("find . -iname '".a:name."*"."' | grep --color=never '".a:filetype."' | perl -ne 'print \"$.\: $_\"'")
+	endif
 	let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
 	if l:num < 1
 		echo "'".a:name."' not found"
@@ -101,7 +104,44 @@ function! Find(name)
 	let l:line=substitute(l:line, "^[^ ]* ./", "", "")
 	execute ":e ".l:line
 endfunction
-command! -nargs=1 Find :call Find("<args>")
+command! -nargs=* Find :call Find(<f-args>)
+
+" Find text in current directory and edit it.
+function! Search(keyword,...)
+	let a:filetype = get(a:, 1, "") " get args2 and set default value
+
+	if strlen(a:filetype) == 0
+		let l:list=system("find . -type f -name \"*.cpp\" -o -name \"*.h\" -o -name \"*.idl\" -o -name \"*.java\" -o -name \"*.go\" | xargs grep --color=never ".a:keyword." | perl -ne 'print \"$.\: $_\"'")
+	else
+		let l:list=system("find . -type f -name *.".a:filetype." | xargs grep -i --color=never ".a:keyword." | perl -ne 'print \"$.\: $_\"'")
+	endif
+	let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
+	if l:num < 1
+		echo "'".a:name."' not found"
+		return
+	endif
+	if l:num != 1
+		echo l:list
+		let l:input=input("Which ? (ENTER=nothing)\n")
+		if strlen(l:input)==0
+			return
+		endif
+		if strlen(substitute(l:input, "[0-9]", "", "g"))>0
+			echo "Not a number"
+			return
+		endif
+		if l:input<1 || l:input>l:num
+			echo "Out of range"
+			return
+		endif
+		let l:line=matchstr("\n".l:list, "\n".l:input.": [^\n]*")
+	else
+		let l:line=l:list
+	endif
+	let l:line=substitute(l:line, "^[^ ]* ./", "", "")
+	execute ":e ".l:line
+endfunction
+command! -nargs=* Search :call Search(<f-args>)
 
 "function! InsertTabWrapper()
 "    let col = col('.')-1
@@ -138,6 +178,7 @@ nmap ,st :call Sts()<CR>
 nmap ,tj :call Tj()<CR>
 nmap <Leader>p :set paste<CR>i
 nmap <Leader>f :Find<SPACE>
+nmap <Leader>s :Search<SPACE>
 nmap <Leader>b :e#<CR>
 "inoremap <tab> <c-r>=InsertTabWrapper()<cr> " for autocomplpop use tab key
 

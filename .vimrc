@@ -5,7 +5,7 @@ autocmd Filetype java setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal noexpandtab tabstop=8
 
 "FlexibleTagsStart
-set tags=/home1/irteam/my_directory/oneapp-api/tags
+set tags=/home1/irteam/worksOne/oneapp-api/tags
 "FlexibleTagsEnd
 
 set nu " 행번호 표시
@@ -170,14 +170,16 @@ nmap <C-a> :TagbarToggle<CR>
 nmap <C-n> :NERDTreeToggle<CR>
 nmap <C-i> :IndentLinesToggle<CR>
 nmap <C-x> :noh<CR>
-"" function folding
+" function folding
 nmap <F1> v]}zf
-"" function open
+" function open
 nmap <F2> zo
 nmap ,st :call Sts()<CR>
 nmap ,tj :call Tj()<CR>
 nmap <Leader>p :set paste<CR>i
+" File find by name(+filetype)
 nmap <Leader>f :Find<SPACE>
+" Text search by keyword(+filetype)
 nmap <Leader>s :Search<SPACE>
 nmap <Leader>b :e#<CR>
 "inoremap <tab> <c-r>=InsertTabWrapper()<cr> " for autocomplpop use tab key

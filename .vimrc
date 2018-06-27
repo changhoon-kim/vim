@@ -5,7 +5,7 @@ autocmd Filetype java setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal noexpandtab tabstop=8
 
 "FlexibleTagsStart
-set tags=/home1/irteam/worksOne/oneapp-api/tags
+set tags=/home1/irteam/worksOne/oneapp-im/tags
 "FlexibleTagsEnd
 
 set nu " 행번호 표시
@@ -134,11 +134,12 @@ function! Search(keyword,...)
 			echo "Out of range"
 			return
 		endif
-		let l:line=matchstr("\n".l:list, "\n".l:input.": [^\n]*")
+		let l:line=matchstr("\n".l:list, "\n".l:input.": [^\n\t]*")
 	else
 		let l:line=l:list
 	endif
 	let l:line=substitute(l:line, "^[^ ]* ./", "", "")
+	let l:line=l:line[0:strlen(l:line)-2]
 	execute ":e ".l:line
 endfunction
 command! -nargs=* Search :call Search(<f-args>)

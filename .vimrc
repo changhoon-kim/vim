@@ -5,7 +5,7 @@ autocmd Filetype java setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal noexpandtab tabstop=8
 
 "FlexibleTagsStart
-set tags=/home1/irteam/worksOne/oneapp-im/tags
+set tags=/home1/irteam/my_directory/oneapp-api/tags
 "FlexibleTagsEnd
 
 set nu " 행번호 표시
@@ -34,6 +34,8 @@ set listchars=tab:¦\ , " with white space
 " command
 " resize +5(or -5) " split mode window size 변경
 " vertical resize +5(or -5) " vertical split mode window size 변경
+
+let g:airline#extensions#tabline#enabled = 1
 
 syntax on
 
@@ -182,9 +184,10 @@ nmap <Leader>p :set paste<CR>i
 nmap <Leader>f :Find<SPACE>
 " Text search by keyword(+filetype)
 nmap <Leader>s :Search<SPACE>
-nmap <Leader>b :e#<CR>
 "inoremap <tab> <c-r>=InsertTabWrapper()<cr> " for autocomplpop use tab key
 
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 nnoremap <silent> <Leader>= :exe "resize +3"<CR>
 nnoremap <silent> <Leader>- :exe "resize -3"<CR>
 nnoremap <silent> <Leader>] :exe "vertical resize +3"<CR>

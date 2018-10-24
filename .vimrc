@@ -5,7 +5,7 @@ autocmd Filetype java setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal noexpandtab tabstop=8
 
 "FlexibleTagsStart
-set tags=/home1/irteam/my_directory/oneapp-api/tags
+set tags=/home1/irteam/worksOne/oneapp-api/tags
 "FlexibleTagsEnd
 
 set nu " 행번호 표시
@@ -188,6 +188,7 @@ nmap <Leader>s :Search<SPACE>
 
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
+nnoremap <expr><silent> <leader>, &showtabline ? ":set showtabline=0\<cr>" : ":set showtabline=2\<cr>"
 nnoremap <silent> <Leader>= :exe "resize +3"<CR>
 nnoremap <silent> <Leader>- :exe "resize -3"<CR>
 nnoremap <silent> <Leader>] :exe "vertical resize +3"<CR>

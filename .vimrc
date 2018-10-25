@@ -5,7 +5,7 @@ autocmd Filetype java setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal noexpandtab tabstop=8
 
 "FlexibleTagsStart
-set tags=/home1/irteam/worksOne/oneapp-api/tags
+set tags=/Users/Naver/Desktop/worksOne/oneapp-linegw/tags
 "FlexibleTagsEnd
 
 set nu " 행번호 표시
@@ -52,12 +52,12 @@ filetype plugin indent on
 
 " set vim leave
 " remove extraneous ".netrwhist" file
-autocmd VimLeave * if filereadable("/home1/irteam/.vim/.netrwhist") | call delete("/home1/irteam/.vim/.netrwhist") | endif
+autocmd VimLeave * if filereadable("$HOME/.vim/.netrwhist") | call delete("$HOME/.vim/.netrwhist") | endif
 " vim leave end
 
 " set vim enter
 " execute ctags-change-in-vimrc.sh
-autocmd VimEnter * if filereadable("/home1/irteam/my_directory/scripts/ctags/ctags-change-in-vimrc.sh") | :silent !ctags-change-in-vimrc.sh | endif
+autocmd VimEnter * if filereadable("$CTAGS_SCRIPTS/ctags-change-in-vimrc.sh") | :silent !ctags-change-in-vimrc.sh | endif
 " vim enter end
 
 " define function
@@ -141,7 +141,8 @@ function! Search(keyword,...)
 		let l:line=l:list
 	endif
 	let l:line=substitute(l:line, "^[^ ]* ./", "", "")
-	let l:line=l:line[0:strlen(l:line)-2]
+	" if included ':' in file name, can't open file
+	let l:line=split(l:line, ":")[0]
 	execute ":e ".l:line
 endfunction
 command! -nargs=* Search :call Search(<f-args>)

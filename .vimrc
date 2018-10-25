@@ -36,6 +36,7 @@ set listchars=tab:¦\ , " with white space
 " vertical resize +5(or -5) " vertical split mode window size 변경
 
 let g:airline#extensions#tabline#enabled = 1
+let g:home = system("echo $HOME")
 
 syntax on
 
@@ -52,12 +53,12 @@ filetype plugin indent on
 
 " set vim leave
 " remove extraneous ".netrwhist" file
-autocmd VimLeave * if filereadable("$HOME/.vim/.netrwhist") | call delete("$HOME/.vim/.netrwhist") | endif
+autocmd VimLeave * if filereadable(g:home."/.vim/.netrwhist") | call delete(g:home."/.vim/.netrwhist") | endif
 " vim leave end
 
 " set vim enter
 " execute ctags-change-in-vimrc.sh
-autocmd VimEnter * if filereadable("$CTAGS_SCRIPTS/ctags-change-in-vimrc.sh") | :silent !ctags-change-in-vimrc.sh | endif
+autocmd VimEnter * :silent !ctags-change-in-vimrc.sh | endif
 " vim enter end
 
 " define function

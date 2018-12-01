@@ -5,7 +5,7 @@ autocmd Filetype java setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal noexpandtab tabstop=8
 
 "FlexibleTagsStart
-set tags=/Users/Naver/Desktop/worksOne/oneapp-linegw/tags
+set tags=/home1/irteam/worksOne/oneapp-linegw/tags
 "FlexibleTagsEnd
 
 set nu " 행번호 표시
@@ -114,10 +114,16 @@ function! Search(keyword,...)
 	let a:filetype = get(a:, 1, "") " get args2 and set default value
 
 	if strlen(a:filetype) == 0
-		let l:list=system("find . -type f -name \"*.cpp\" -o -name \"*.h\" -o -name \"*.idl\" -o -name \"*.java\" -o -name \"*.go\" | xargs grep --color=never ".a:keyword." | perl -ne 'print \"$.\: $_\"'")
+		let l:list=system("find . -type f -name \"*.cpp\" -o -name \"*.h\" -o -name \"*.idl\" -o -name \"*.java\" -o -name \"*.go\" | xargs grep -n --color=never ".a:keyword." | perl -ne 'print \"$.\: $_\"'")
 	else
-		let l:list=system("find . -type f -name *.".a:filetype." | xargs grep -i --color=never ".a:keyword." | perl -ne 'print \"$.\: $_\"'")
+		let l:list=system("find . -type f -name *.".a:filetype." | xargs grep -n -i --color=never ".a:keyword." | perl -ne 'print \"$.\: $_\"'")
 	endif
+
+	if strlen(l:list)==0
+		echo "Not exists string"
+		return
+	endif
+
 	let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
 	if l:num < 1
 		echo "'".a:name."' not found"
@@ -143,8 +149,11 @@ function! Search(keyword,...)
 	endif
 	let l:line=substitute(l:line, "^[^ ]* ./", "", "")
 	" if included ':' in file name, can't open file
-	let l:line=split(l:line, ":")[0]
-	execute ":e ".l:line
+	let l:splitted=split(l:line, ":")
+	let l:filename=l:splitted[0]
+	let l:linenum=l:splitted[1]
+	execute ":e ".l:filename
+	execute ":exe ". l:linenum
 endfunction
 command! -nargs=* Search :call Search(<f-args>)
 
@@ -181,6 +190,7 @@ nmap <F1> v]}zf
 nmap <F2> zo
 nmap ,st :call Sts()<CR>
 nmap ,tj :call Tj()<CR>
+nmap ,del :%s/\s\+$//e<CR>
 nmap <Leader>p :set paste<CR>i
 " File find by name(+filetype)
 nmap <Leader>f :Find<SPACE>

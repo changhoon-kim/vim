@@ -2,10 +2,11 @@ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype c setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype cpp setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype java setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype javascript setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal noexpandtab tabstop=8
 
 "FlexibleTagsStart
-set tags=/home1/irteam/worksOne/oneapp-linegw/tags
+set tags=/home1/irteam/worksOne/oneapp-api/tags
 "FlexibleTagsEnd
 
 set nu " 행번호 표시
@@ -58,7 +59,8 @@ autocmd VimLeave * if filereadable(g:home."/.vim/.netrwhist") | call delete(g:ho
 
 " set vim enter
 " execute ctags-change-in-vimrc.sh
-autocmd VimEnter * :silent !ctags-change-in-vimrc.sh | endif
+" autocmd VimEnter * :silent !ctags-change-in-vimrc.sh
+autocmd VimEnter * :set tags=./tags,tags
 " vim enter end
 
 " define function
@@ -188,9 +190,11 @@ nmap <C-x> :noh<CR>
 nmap <F1> v]}zf
 " function open
 nmap <F2> zo
+nmap ,w :w<CR>
 nmap ,st :call Sts()<CR>
 nmap ,tj :call Tj()<CR>
 nmap ,del :%s/\s\+$//e<CR>
+nmap ,tag :set tags=./tags,tags<CR>
 nmap <Leader>p :set paste<CR>i
 " File find by name(+filetype)
 nmap <Leader>f :Find<SPACE>
